@@ -47,8 +47,8 @@ plyr::count(eduros$age12)
 
 #Create a table that shows the percentage of 12 year-olds who are not currently attending lower or upper secondary school
 
-outofschooltable <- table(eduros$age12,eduros$s02q12)
-outofschooltable #Columns 2=currently NOT attending school, 1=currently ATTENDING school / Rows 0=Not secondary age, 1=secondary age
+outofschooltable12 <- table(eduros$age12,eduros$s02q12)
+outofschooltable12 #Columns 2=currently NOT attending school, 1=currently ATTENDING school / Rows 0=Not secondary age, 1=secondary age
 
 #13 year-olds
 eduros <- eduros %>%
@@ -61,4 +61,51 @@ outofschooltable13 <- table(eduros$age13,eduros$s02q12)
 outofschooltable13
 
 #14 year-olds
+library(dplyr)
+library(haven)
+eduros <- eduros %>%
+  mutate(
+    age14=ifelse(eduros$s01q04a=="14",1,0))
+
+plyr::count(eduros$age14)
+
+outofschooltable14 <- table(eduros$age14,eduros$s02q12)
+outofschooltable14
+
+#15 year-olds
+library(dplyr)
+library(haven)
+eduros <- eduros %>%
+  mutate(
+    age15=ifelse(eduros$s01q04a=="15",1,0))
+
+plyr::count(eduros$age15)
+
+outofschooltable15 <- table(eduros$age15,eduros$s02q12)
+outofschooltable15
+
+#16 year-olds
+library(dplyr)
+library(haven)
+eduros <- eduros %>%
+  mutate(
+    age16=ifelse(eduros$s01q04a=="16",1,0))
+
+plyr::count(eduros$age16)
+
+outofschooltable16 <- table(eduros$age16,eduros$s02q12)
+outofschooltable16
+
+#17 year-olds
+library(dplyr)
+library(haven)
+eduros <- eduros %>%
+  mutate(
+    age17=ifelse(eduros$s01q04a=="17",1,0))
+
+plyr::count(eduros$age17)
+
+outofschooltable17 <- table(eduros$age17,eduros$s02q12)
+outofschooltable17
+
          
