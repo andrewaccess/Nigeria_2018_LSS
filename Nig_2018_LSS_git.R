@@ -1,3 +1,7 @@
+
+
+setwd("/Users/andrewchristensen/Documents/Access Initiative/Nigeria/NGA_2018_LSS_v01_M_SPSS/Household/")
+getwd()
 install.packages("haven")
 
 library("haven")
@@ -107,5 +111,28 @@ plyr::count(eduros$age17)
 
 outofschooltable17 <- table(eduros$age17,eduros$s02q12)
 outofschooltable17
+
+#1.13 Identify how out of school rates vary by gender overall
+secondaryagegendertable <- table(eduros$secondaryage,eduros$s02q02)
+secondaryagegendertable #columns: female=2, male=1; rows: secondary school age = 1, not secondary school age = 0
+# There are many more females of secondary school age than males of secondary school age, perhaps this is due to sampling procedure.
+
+eduros <- eduros %>%
+  mutate(
+    secondaryagegirl=if_else(eduros$s02q02==2 & secondaryage==1 ,1,0))
+
+plyr::count(eduros$secondaryagegirl)
+
+eduros <- eduros %>%
+  mutate(
+    secondaryageboy=if_else(eduros$s02q02==1 & secondaryage==1 ,1,0))
+
+plyr::count(eduros$secondaryageboy)
+
+outofschooltablegirls <- table(eduros$secondaryagegirl,eduros$s02q12)
+outofschooltablegirls # Rows= girl=1, boy=0, Column= ATTENDING=1, NOT ATTENDING=2
+
+outofschooltableboys <- table(eduros$secondaryageboy,eduros$s02q12)
+outofschooltableboys # Rows= boy=1, girl=0, Column= ATTENDING=1, NOT ATTENDING=2
 
          
