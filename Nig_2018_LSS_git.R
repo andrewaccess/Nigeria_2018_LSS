@@ -135,4 +135,82 @@ outofschooltablegirls # Rows= girl=1, boy=0, Column= ATTENDING=1, NOT ATTENDING=
 outofschooltableboys <- table(eduros$secondaryageboy,eduros$s02q12)
 outofschooltableboys # Rows= boy=1, girl=0, Column= ATTENDING=1, NOT ATTENDING=2
 
+#1.14 Identify how out of school rates vary by gender by each age
+
+##Create binary variable for each age/gender combination
+eduros <- eduros %>%
+  mutate(
+    girl12=if_else(eduros$s02q02==2 & eduros$s01q04a=="12",1,0),
+    girl13=if_else(eduros$s02q02==2 & eduros$s01q04a=="13",1,0),
+    girl14=if_else(eduros$s02q02==2 & eduros$s01q04a=="14",1,0),
+    girl15=if_else(eduros$s02q02==2 & eduros$s01q04a=="15",1,0),
+    girl16=if_else(eduros$s02q02==2 & eduros$s01q04a=="16",1,0),
+    girl17=if_else(eduros$s02q02==2 & eduros$s01q04a=="17",1,0),
+    boy12=if_else(eduros$s02q02==1 & eduros$s01q04a=="12",1,0),
+    boy13=if_else(eduros$s02q02==1 & eduros$s01q04a=="13",1,0),
+    boy14=if_else(eduros$s02q02==1 & eduros$s01q04a=="14",1,0),
+    boy15=if_else(eduros$s02q02==1 & eduros$s01q04a=="15",1,0),
+    boy16=if_else(eduros$s02q02==1 & eduros$s01q04a=="16",1,0),
+    boy17=if_else(eduros$s02q02==1 & eduros$s01q04a=="17",1,0))
+
+plyr::count(eduros$girl12)
+plyr::count(eduros$girl13)
+plyr::count(eduros$girl14)
+plyr::count(eduros$girl15)
+plyr::count(eduros$girl16)
+plyr::count(eduros$girl17)
+plyr::count(eduros$boy12)
+plyr::count(eduros$boy13)
+plyr::count(eduros$boy14)
+plyr::count(eduros$boy15)
+plyr::count(eduros$boy16)
+plyr::count(eduros$boy17)
+
+
+OOSgirl12 <- table(eduros$girl12,eduros$s02q12, dnn = c("12 year old girls=1", "Attending=1"))
+OOSgirl12 # Rows= girl12=1, Notgirl12=0, Column= ATTENDING=1, NOT ATTENDING=2
+
+OOSgirl13 <- table(eduros$girl13,eduros$s02q12, dnn = c("13 year old girls=1", "Attending=1"))
+OOSgirl13
+
+OOSgirl14 <- table(eduros$girl14,eduros$s02q12, dnn = c("14 year old girls=1", "Attending=1"))
+OOSgirl14
+
+OOSgirl15 <- table(eduros$girl15,eduros$s02q12, dnn = c("15 year old girls=1", "Attending=1"))
+OOSgirl15
+
+OOSgirl16 <- table(eduros$girl16,eduros$s02q12, dnn = c("16 year old girls=1", "Attending=1"))
+OOSgirl16
+
+OOSgirl17 <- table(eduros$girl17,eduros$s02q12, dnn = c("17 year old girls=1", "Attending=1"))
+OOSgirl17
+
+OOSboy12 <- table(eduros$boy12,eduros$s02q12, dnn = c("12 year old boys=1", "Attending=1"))
+OOSboy12 
+
+OOSboy13 <- table(eduros$boy13,eduros$s02q12, dnn = c("13 year old boys=1", "Attending=1"))
+OOSboy13
+
+OOSboy14 <- table(eduros$boy14,eduros$s02q12, dnn = c("14 year old boys=1", "Attending=1"))
+OOSboy14 
+
+OOSboy15 <- table(eduros$boy15,eduros$s02q12, dnn = c("15 year old boys=1", "Attending=1"))
+OOSboy15 
+
+OOSboy16 <- table(eduros$boy16,eduros$s02q12, dnn = c("16 year old boys=1", "Attending=1"))
+OOSboy16 
+
+OOSboy17 <- table(eduros$boy17,eduros$s02q12, dnn = c("17 year old boys=1", "Attending=1"))
+OOSboy17 
+
+#1.15 Are the gender differences in out-of-school rates for each age statistically significant, before controlling for other factors?
+##Create database with rows (ages - grouping vecto) and columns (gender)Compute and store rates for each group
+
+age12means <- eduros %>%
+    group_by(girl12) %>%
+    summarize(OOSgir12 = mean(s02q12))
+
+age12means
+plyr::count(eduros$girl12)
+plyr::count(age12means$OOSgirl12)
          
