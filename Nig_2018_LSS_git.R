@@ -1,5 +1,3 @@
-
-
 setwd("/Users/andrewchristensen/Documents/Access Initiative/Nigeria/NGA_2018_LSS_v01_M_SPSS/Household/")
 getwd()
 install.packages("haven")
@@ -204,13 +202,26 @@ OOSboy17 <- table(eduros$boy17,eduros$s02q12, dnn = c("17 year old boys=1", "Att
 OOSboy17 
 
 #1.15 Are the gender differences in out-of-school rates for each age statistically significant, before controlling for other factors?
-##Create database with rows (ages - grouping vecto) and columns (gender)Compute and store rates for each group
+##Create database with rows (ages - grouping vector) and columns (gender) Compute and store rates for each group in new dataset.
 
 age12means <- eduros %>%
-    group_by(girl12) %>%
-    summarize(OOSgir12 = mean(s02q12))
+    group_by (girl12) %>%
+    summarize(OOSgir12 = (mean(s02q12,na.rm=TRUE)))
+   
+age12means <- eduros %>%
+    group_by(boy12) %>%
+    summarize(OOSboy12 = (mean(02q12,na.rm=TRUE)))
+    
+ 
 
 age12means
 plyr::count(eduros$girl12)
 plyr::count(age12means$OOSgirl12)
+
+mean(eduros$s02q12,na.rm=TRUE)
+
+
+
+
+
          
